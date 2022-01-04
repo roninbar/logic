@@ -15,21 +15,20 @@ class ConfigError(Exception):
 
 
 def create_network(node):
-    match node['type']:
-        case 'term':
-            gate = InputGate()
-        case 'not':
-            gate = NotGate(create_network(node['input']))
-        case 'and':
-            gate = AndGate()
-            for n in node['inputs']:
-                gate.add_input(create_network(n))
-        case 'or':
-            gate = OrGate()
-            for n in node['inputs']:
-                gate.add_input(create_network(n))
-        case _:
-            raise ConfigError(f"Invalid node type \"{node['type']}\"")
+    if node['type'] == 'term':
+        gate = InputGate()
+    elif node['type'] == 'not':
+        gate = NotGate(create_network(node['input']))
+    elif node['type'] == 'and':
+        gate = AndGate()
+        for n in node['inputs']:
+            gate.add_input(create_network(n))
+    elif node['type'] == 'or':
+        gate = OrGate()
+        for n in node['inputs']:
+            gate.add_input(create_network(n))
+    else:
+        raise ConfigError(f"Invalid node type \"{node['type']}\"")
 
     return gate
 
