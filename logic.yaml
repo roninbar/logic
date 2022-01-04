@@ -1,0 +1,11 @@
+---
+type: or
+inputs:
+- type: and
+  inputs:
+  - type: term
+  - type: term
+  - type: term
+- type: not
+  input:
+    type: term
