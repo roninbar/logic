@@ -6,9 +6,6 @@ from InputGate import InputGate
 from NotGate import NotGate
 from OrGate import OrGate
 
-with open('logic.yaml') as config_file:
-    config = yaml.safe_load(config_file)
-
 
 class ConfigError(Exception):
 
@@ -37,6 +34,9 @@ def create_network(node):
 
     return gate
 
+
+with open('logic.yaml') as config_file:
+    config = yaml.safe_load(config_file)
 
 network = create_network(config)
 
