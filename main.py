@@ -1,4 +1,5 @@
 import yaml
+import csv
 
 from AndGate import AndGate
 from InputGate import InputGate
@@ -10,8 +11,12 @@ with open('logic.yaml') as config_file:
 
 
 class ConfigError(Exception):
+
     def __init__(self, message):
         self.message = message
+
+    def __str__(self):
+        return f'{type(self)}: {self.message}'
 
 
 def create_network(node):
@@ -36,5 +41,6 @@ def create_network(node):
 network = create_network(config)
 
 with open('input.csv') as input_file:
-    for input_line in input_file:
-        print(network.get_output_signal())
+    sample = input_file.read(1024); input_file.seek(0)
+    for row in csv.reader(input_file, dialect=csv.Sniffer().sniff(sample)):
+        print(f'{[int(s) for s in row]} -> {int(network.get_output_signal(iter(row)))}')
