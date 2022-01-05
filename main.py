@@ -22,13 +22,9 @@ def create_network(node):
     elif node['type'] == 'not':
         gate = NotGate(create_network(node['input']))
     elif node['type'] == 'and':
-        gate = AndGate()
-        for n in node['inputs']:
-            gate.add_input(create_network(n))
+        gate = AndGate(create_network(n) for n in node['inputs'])
     elif node['type'] == 'or':
-        gate = OrGate()
-        for n in node['inputs']:
-            gate.add_input(create_network(n))
+        gate = OrGate(create_network(n) for n in node['inputs'])
     else:
         raise ConfigError(f"Invalid node type \"{node['type']}\"")
 
@@ -36,11 +32,8 @@ def create_network(node):
 
 
 with open('logic.yaml') as config_file:
-    config = yaml.safe_load(config_file)
-
-network = create_network(config)
+    network = create_network(yaml.safe_load(config_file))
 
 with open('input.csv') as input_file:
-    sample = input_file.read(1024); input_file.seek(0)
-    for row in csv.reader(input_file, dialect=csv.Sniffer().sniff(sample)):
+    for row in csv.reader(input_file):
         print(f'{[int(s) for s in row]} -> {int(network.get_output_signal(iter(row)))}')
