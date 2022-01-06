@@ -35,6 +35,10 @@ def create_network(node):
 with open('logic.yaml') as config_file:
     network = create_network(yaml.safe_load(config_file))
 
+print(network)
+
 with open('input.csv') as input_file:
     for row in csv.reader(input_file):
-        print(f'{[int(s) for s in row]} -> {int(network.get_output_value(iter(row)))}')
+        template = network.get_template(iter(range(len(row))))
+        value = network.get_output_value(iter(row))
+        print(template.format(*[int(s) for s in row]) + ' = ' + str(int(value)))

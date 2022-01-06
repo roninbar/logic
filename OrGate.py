@@ -8,8 +8,14 @@ from Gate import Gate
 class OrGate(Gate):
     _inputs: list[Gate]
 
-    def __init__(self, inputs: Iterable[Gate] = []):
-        self._inputs = list(inputs)
+    def __init__(self, inputs: Iterable[Gate]):
+        self._inputs = list(inputs) if inputs else []
+
+    def __str__(self):
+        return f"(or {' '.join([str(input) for input in self._inputs])})"
+
+    def get_template(self, input_enum: Iterator[int]) -> str:
+        return f"(or {' '.join([input.get_template(input_enum) for input in self._inputs])})"
 
     def get_output_value(self, input_iter: Iterator[str]) -> bool:
         input_signals = map(methodcaller('get_output_value', input_iter), self._inputs)
