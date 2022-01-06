@@ -29,8 +29,8 @@ def create_network(node):
             gate = AndGate(create_network(input) for input in inputs)
         case {'type': 'or', 'inputs': inputs}:
             gate = OrGate(create_network(input) for input in inputs)
-        case _:
-            raise ConfigError(f"Invalid node type \"{node['type']}\"")
+        case {'type': type}:
+            raise ConfigError(f"Invalid node type \"{type}\"")
 
     return gate
 
