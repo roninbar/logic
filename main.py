@@ -20,16 +20,19 @@ class ConfigError(Exception):
 
 
 def create_network(node):
-    if node['type'] == 'term':
-        return InputGate()
-    elif node['type'] == 'not':
-        return NotGate(create_network(node['input']))
-    elif node['type'] == 'and':
-        return AndGate(create_network(n) for n in node['inputs'])
-    elif node['type'] == 'or':
-        return OrGate(create_network(n) for n in node['inputs'])
-    else:
-        raise ConfigError(f"Invalid node type \"{node['type']}\"")
+    match node:
+        case {'type': 'term'}:
+            gate = InputGate()
+        case {'type': 'not', 'input': input}:
+            gate = NotGate(create_network(input))
+        case {'type': 'and', 'inputs': inputs}:
+            gate = AndGate(create_network(input) for input in inputs)
+        case {'type': 'or', 'inputs': inputs}:
+            gate = OrGate(create_network(input) for input in inputs)
+        case _:
+            raise ConfigError(f"Invalid node type \"{node['type']}\"")
+
+    return gate
 
 
 parser = argparse.ArgumentParser(description='Evaluate a Boolean function.')
