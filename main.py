@@ -1,5 +1,6 @@
-import yaml
 import csv
+
+import yaml
 
 from AndGate import AndGate
 from InputGate import InputGate
@@ -36,4 +37,4 @@ with open('logic.yaml') as config_file:
 
 with open('input.csv') as input_file:
     for row in csv.reader(input_file):
-        print(f'{[int(s) for s in row]} -> {int(network.get_output_signal(iter(row)))}')
+        print(f'{[int(s) for s in row]} -> {int(network.get_output_value(iter(row)))}')
