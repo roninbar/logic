@@ -11,10 +11,10 @@ from OrGate import OrGate
 class ConfigError(Exception):
 
     def __init__(self, message):
-        self.message = message
+        self._message = message
 
     def __str__(self):
-        return f'{type(self)}: {self.message}'
+        return f'{type(self)}: {self._message}'
 
 
 def create_network(node):
