@@ -12,13 +12,13 @@ class AndGate(Gate):
         self._inputs = list(inputs) if inputs else []
 
     def __str__(self):
-        return f"(and {' '.join([str(input) for input in self._inputs])})"
+        return f"(and {' '.join(str(input) for input in self._inputs)})"
 
-    def get_template(self, input_enum: Iterator[int]) -> str:
-        return f"(and {' '.join([input.get_template(input_enum) for input in self._inputs])})"
+    def template(self, input_enum: Iterator[int]) -> str:
+        return f"(and {' '.join(input.template(input_enum) for input in self._inputs)})"
 
-    def get_output_value(self, input_iter: Iterator[str]) -> bool:
-        input_signals = map(methodcaller('get_output_value', input_iter), self._inputs)
+    def value(self, input_iter: Iterator[str]) -> bool:
+        input_signals = map(methodcaller('value', input_iter), self._inputs)
         return reduce(and_, input_signals, True)
 
     def add_input(self, g: Gate):

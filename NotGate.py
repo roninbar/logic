@@ -12,8 +12,8 @@ class NotGate(Gate):
     def __str__(self):
         return f'(not {self._input})'
 
-    def get_template(self, input_enum: Iterator[int]) -> str:
-        return f'(not {self._input.get_template(input_enum)})'
+    def template(self, input_enum: Iterator[int]) -> str:
+        return f'(not {self._input.template(input_enum)})'
 
-    def get_output_value(self, input_iter: Iterator[str]) -> bool:
-        return not self._input.get_output_value(input_iter)
+    def value(self, input_iter: Iterator[str]) -> bool:
+        return not self._input.value(input_iter)
