@@ -1,5 +1,4 @@
 import csv
-from itertools import count
 
 import yaml
 
@@ -40,6 +39,6 @@ print(network)
 
 with open('input.csv') as input_file:
     for row in csv.reader(input_file):
-        template = network.template(count(0))
+        template = network.template()
         value = network.value(iter(row))
         print(template.format(*[int(s) for s in row]) + ' = ' + str(int(value)))

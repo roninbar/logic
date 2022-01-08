@@ -5,7 +5,7 @@ from typing import Iterator
 class Gate(ABC):
 
     @abstractmethod
-    def template(self, input_enum: Iterator[int]) -> str:
+    def template(self) -> str:
         pass
 
     @abstractmethod

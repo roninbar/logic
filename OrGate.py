@@ -14,8 +14,8 @@ class OrGate(Gate):
     def __str__(self):
         return f"(or {' '.join(str(input) for input in self._inputs)})"
 
-    def template(self, input_enum: Iterator[int]) -> str:
-        return f"(or {' '.join(input.template(input_enum) for input in self._inputs)})"
+    def template(self) -> str:
+        return f"(or {' '.join(input.template() for input in self._inputs)})"
 
     def value(self, input_iter: Iterator[str]) -> bool:
         input_signals = map(methodcaller('value', input_iter), self._inputs)
