@@ -35,8 +35,8 @@ with open('logic.yaml') as config_file:
 
 print(network)
 
+template = network.template()
+
 with open('input.csv') as input_file:
     for row in csv.reader(input_file):
-        template = network.template()
-        value = network.value(iter(row))
-        print(template.format(*[int(s) for s in row]) + ' = ' + str(int(value)))
+        print(template.format(*[int(s) for s in row]) + ' = ' + str(int(network.value(iter(row)))))
