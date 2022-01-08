@@ -1,4 +1,5 @@
 import csv
+from sys import stdin
 
 import yaml
 
@@ -37,6 +38,8 @@ print(network)
 
 template = network.template()
 
-with open('input.csv') as input_file:
-    for row in csv.reader(input_file):
+for row in csv.reader(stdin):
+    try:
         print(template.format(*[int(s) for s in row]) + ' = ' + str(int(network.value(iter(row)))))
+    except IndexError:
+        print(f'! Insufficient inputs: ')
