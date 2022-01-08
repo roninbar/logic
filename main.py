@@ -19,17 +19,15 @@ class ConfigError(Exception):
 
 def create_network(node):
     if node['type'] == 'term':
-        gate = InputGate()
+        return InputGate()
     elif node['type'] == 'not':
-        gate = NotGate(create_network(node['input']))
+        return NotGate(create_network(node['input']))
     elif node['type'] == 'and':
-        gate = AndGate(create_network(n) for n in node['inputs'])
+        return AndGate(create_network(n) for n in node['inputs'])
     elif node['type'] == 'or':
-        gate = OrGate(create_network(n) for n in node['inputs'])
+        return OrGate(create_network(n) for n in node['inputs'])
     else:
         raise ConfigError(f"Invalid node type \"{node['type']}\"")
-
-    return gate
 
 
 with open('logic.yaml') as config_file:
