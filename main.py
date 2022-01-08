@@ -22,17 +22,15 @@ class ConfigError(Exception):
 def create_network(node):
     match node:
         case {'type': 'term'}:
-            gate = InputGate()
+            return InputGate()
         case {'type': 'not', 'input': input}:
-            gate = NotGate(create_network(input))
+            return NotGate(create_network(input))
         case {'type': 'and', 'inputs': inputs}:
-            gate = AndGate(create_network(input) for input in inputs)
+            return AndGate(create_network(input) for input in inputs)
         case {'type': 'or', 'inputs': inputs}:
-            gate = OrGate(create_network(input) for input in inputs)
+            return OrGate(create_network(input) for input in inputs)
         case {'type': type}:
             raise ConfigError(f"Invalid node type \"{type}\"")
-
-    return gate
 
 
 parser = argparse.ArgumentParser(description='Evaluate a Boolean function.')
