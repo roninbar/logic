@@ -1,3 +1,4 @@
+import argparse
 import csv
 from sys import stdin
 
@@ -31,7 +32,14 @@ def create_network(node):
         raise ConfigError(f"Invalid node type \"{node['type']}\"")
 
 
-with open('logic.yaml') as config_file:
+parser = argparse.ArgumentParser(description='Compute a logical function.')
+parser.add_argument('--yaml', '-y',
+                    dest='yaml',
+                    default='logic.yaml',
+                    help='Path of YAML file describing the function.')
+args = parser.parse_args()
+
+with open(args.yaml) as config_file:
     network = create_network(yaml.safe_load(config_file))
 
 print(network)
