@@ -32,14 +32,14 @@ def create_network(node):
         raise ConfigError(f"Invalid node type \"{node['type']}\"")
 
 
-parser = argparse.ArgumentParser(description='Compute a logical function.')
-parser.add_argument('--yaml', '-y',
-                    dest='yaml',
-                    default='logic.yaml',
+parser = argparse.ArgumentParser(description='Evaluate a Boolean function.')
+parser.add_argument('--config', '-c',
+                    dest='config',
+                    default='config.yaml',
                     help='Path of YAML file describing the function.')
 args = parser.parse_args()
 
-with open(args.yaml) as config_file:
+with open(args.config) as config_file:
     network = create_network(yaml.safe_load(config_file))
 
 print(network)
