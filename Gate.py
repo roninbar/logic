@@ -9,5 +9,5 @@ class Gate(ABC):
         pass
 
     @abstractmethod
-    def value(self, input_iter: Iterator[str]) -> bool:
+    def value(self, input_iter: Iterator[bool]) -> bool:
         pass

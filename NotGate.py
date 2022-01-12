@@ -15,5 +15,5 @@ class NotGate(Gate):
     def template(self) -> str:
         return f'(not {self._input.template()})'
 
-    def value(self, input_iter: Iterator[str]) -> bool:
+    def value(self, input_iter: Iterator[bool]) -> bool:
         return not self._input.value(input_iter)

@@ -48,6 +48,7 @@ template = network.template()
 
 for row in csv.reader(stdin):
     try:
-        print(template.format(*[int(s) for s in row]) + ' = ' + str(int(network.value(iter(row)))))
+        value = network.value(bool(int(value.strip())) for value in row)
+        print(template.format(*[int(s) for s in row]) + ' = ' + str(int(value)))
     except IndexError:
         print(f'! Insufficient inputs: ')

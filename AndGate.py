@@ -17,7 +17,7 @@ class AndGate(Gate):
     def template(self) -> str:
         return f"(and {' '.join(input.template() for input in self._inputs)})"
 
-    def value(self, input_iter: Iterator[str]) -> bool:
+    def value(self, input_iter: Iterator[bool]) -> bool:
         input_signals = map(methodcaller('value', input_iter), self._inputs)
         return reduce(and_, input_signals, True)
 

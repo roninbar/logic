@@ -11,6 +11,5 @@ class InputGate(Gate):
     def template(self) -> str:
         return '{}'
 
-    def value(self, input_iter: Iterator[str]) -> bool:
-        s = next(input_iter).strip()
-        return bool(int(s))
+    def value(self, input_iter: Iterator[bool]) -> bool:
+        return next(input_iter)
