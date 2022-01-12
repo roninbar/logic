@@ -1,9 +1,12 @@
 ```mermaid
 graph LR
-    term1([1]) & term2([2]) & term3([3]) ---> and[and]
-    term4([4]) ---> not((not))
-    and & not --> or[or] --> out([out])
+    and ---> term1([1])
+    and[and] --> or2[or] --> term2([2]) & term3([3])
+    and ---> term4([4])
+    not((not)) ---> term5([5])
+    out([network]) --> or[or] --> and & not
 ```
+
 ```mermaid
 classDiagram
     Gate <|-- MultiGate
@@ -19,7 +22,7 @@ classDiagram
         <<abstract>>
         +__init__(inputs: Iterable[Gate], op: (bool, bool) -> bool], initial: bool, opname: str)
         +__str__() str
-        +value(input: Iterator[str]) bool
+        +value(input: Iterator[bool]) bool
     }
     class InputGate {
         +__str__() str
@@ -32,7 +35,7 @@ classDiagram
         +__init__(inputs: Iterable[Gate])
     }
     class NotGate {
-        +__init__(g: Gate)
+        +__init__(input: Gate)
         +__str__() str
         +value(input: Iterator[bool]) bool
     }
