@@ -6,27 +6,34 @@ graph LR
 ```
 ```mermaid
 classDiagram
-    Gate <|-- AndGate
-    Gate <|-- OrGate
+    Gate <|-- MultiGate
+    MultiGate <|-- AndGate
+    MultiGate <|-- OrGate
     Gate <|-- NotGate
     Gate <|-- InputGate
     class Gate {
         <<abstract>>
-        +GetOutputSignal()* bool
+        +value(input: Iterator[bool])* bool
+    }
+    class MultiGate {
+        <<abstract>>
+        +__init__(inputs: Iterable[Gate], op: (bool, bool) -> bool], initial: bool, opname: str)
+        +__str__() str
+        +value(input: Iterator[str]) bool
     }
     class InputGate {
-        +GetOutputSignal() bool
+        +__str__() str
+        +value(input: Iterator[bool]) bool
     }
     class AndGate {
-        +GetOutputSignal() bool
-        +AddInput(g: Gate)
+        +__init__(inputs: Iterable[Gate])
     }
     class OrGate {
-        +GetOutputSignal() bool
-        +AddInput(g: Gate)
+        +__init__(inputs: Iterable[Gate])
     }
     class NotGate {
-        +GetOutputSignal() bool
-        +SetInput(g: Gate)
+        +__init__(g: Gate)
+        +__str__() str
+        +value(input: Iterator[bool]) bool
     }
 ```
